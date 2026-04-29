@@ -1,0 +1,23 @@
+<%- |
+  String[1]                  $token,
+  Stdlib::IP::Address        $node_ip,
+  Array[Stdlib::IP::Address] $tls_sans,
+  String[1]                  $iface,
+  Boolean                    $bootstrap,
+  Optional[String]           $server_url,
+| -%>
+# Managed by Puppet - k3s_management
+token: "<%= $token %>"
+node-ip: "<%= $node_ip %>"
+advertise-address: "<%= $node_ip %>"
+flannel-iface: "<%= $iface %>"
+write-kubeconfig-mode: "0640"
+tls-san:
+<% $tls_sans.each |$san| { -%>
+  - "<%= $san %>"
+<% } -%>
+<% if $bootstrap { -%>
+cluster-init: true
+<% } else { -%>
+server: "<%= $server_url %>"
+<% } -%>
