@@ -1,0 +1,43 @@
+# =============================================
+# nodes/k3s-01.example.com.yaml  (Bootstrap-Node)
+# =============================================
+k3s_management::version: 'v1.33.10+k3s1'
+k3s_management::token: '4f8a9e2b1c5d6f7e8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f'
+k3s_management::flannel_iface: 'ens18'
+k3s_management::tls_sans:
+  - '10.10.10.10'   # spaetere kube-vip VIP
+  - '10.10.10.11'
+  - '10.10.10.12'
+  - '10.10.10.13'
+k3s_management::bootstrap: true
+k3s_management::node_ip: '10.10.10.11'
+ 
+# =============================================
+# nodes/k3s-02.example.com.yaml  (Join-Node)
+# =============================================
+k3s_management::version: 'v1.33.10+k3s1'
+k3s_management::token: '4f8a9e2b1c5d6f7e8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f'
+k3s_management::flannel_iface: 'ens18'
+k3s_management::tls_sans:
+  - '10.10.10.10'
+  - '10.10.10.11'
+  - '10.10.10.12'
+  - '10.10.10.13'
+k3s_management::bootstrap: false
+k3s_management::node_ip: '10.10.10.12'
+k3s_management::server_url: 'https://10.10.10.11:6443'
+ 
+# =============================================
+# nodes/k3s-03.example.com.yaml  (Join-Node)
+# =============================================
+k3s_management::version: 'v1.33.10+k3s1'
+k3s_management::token: '4f8a9e2b1c5d6f7e8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f'
+k3s_management::flannel_iface: 'ens18'
+k3s_management::tls_sans:
+  - '10.10.10.10'
+  - '10.10.10.11'
+  - '10.10.10.12'
+  - '10.10.10.13'
+k3s_management::bootstrap: false
+k3s_management::node_ip: '10.10.10.13'
+k3s_management::server_url: 'https://10.10.10.11:6443'
